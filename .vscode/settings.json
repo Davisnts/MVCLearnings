@@ -1,0 +1,3 @@
+{
+    "dotnet.defaultSolution": "Back/src/fullstack.API/fullstack.API.sln"
+}
