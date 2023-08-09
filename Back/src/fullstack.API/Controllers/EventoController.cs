@@ -1,29 +1,40 @@
-using fullstack.API.Data;
-using fullstack.API.Models;
+
+using Fullstack.Domain;
+using Fullstack.Persistence;
+using Fullstack.Persistence.Contexto;
+using Fullstack.Persistence.Contratos;
 using Microsoft.AspNetCore.Mvc;
-namespace fullstack.API.Controllers
+namespace Fullstack.API.Controllers
 {
     [ApiController]
     [Route("[controller]")]
     public class EventoController : ControllerBase
     {
-        private readonly DataContext _context;
-        public EventoController(DataContext context)
+        private readonly FullstackContext _context;
+        private readonly IEventoService _eventoService;
+        public EventoController(IEventoService eventoService)
         {
-            _context = context;
+            _eventoService = eventoService;
+            
         }
 
         [HttpGet]
-        public IEnumerable<Evento> Get()
+        public async IEnumerable<Evento> Get()
         {
-            return _context.Eventos;
-
+            try
+            {
+                var eventos = await _eventoService.GetAllEventosAsync(true);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         [HttpGet("{id}")]
         public Evento GetByGet(int id)
         {
-            return _context.Eventos.FirstOrDefault(evento => evento.EventoId == id);
+            return _context.Eventos.FirstOrDefault(evento => evento.Id == id);
 
         }
 
