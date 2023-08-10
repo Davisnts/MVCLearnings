@@ -1,5 +1,6 @@
 namespace Fullstack.Domain
 {
+
     public class Lote
     {
         public int Id { get; set; }

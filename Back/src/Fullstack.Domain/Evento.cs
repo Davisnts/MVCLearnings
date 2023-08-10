@@ -8,8 +8,8 @@ public class Evento
     public int QtdPessoas { get; set; }
     public string ImagemUrl { get; set; }
     public int Telefone { get; set; }
-    public string Email { get; set; }
-    public IEnumerable<Lote> Lote { get; set; }
+    public string Email { get; set; } 
+    public IEnumerable<Lote> Lotes { get; set; }
     public IEnumerable<RedeSocial> RedeSociais { get; set; }
     public IEnumerable<PalestranteEvento> PalestrantesEventos { get; set; }
 }

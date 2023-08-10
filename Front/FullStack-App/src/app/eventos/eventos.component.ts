@@ -44,7 +44,7 @@ export class EventosComponent {
   }
 
   public getEventos(): void {
-    this.http.get('https://localhost:5001/evento').subscribe(
+    this.http.get('https://localhost:5001/eventos').subscribe(
       (response) => {
         this.eventos = response;
         this.eventosFiltrados = this.eventos;
