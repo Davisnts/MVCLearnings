@@ -1,1 +1,43 @@
-<p>evento-detalhe works!</p>
+<div class="card rounded shadow-sm p-3">
+<form>
+    <div class="p-3">
+        <div class="mb-3">
+            <label for="inputTema" class="form-label">Tema</label>
+            <input type="text" class="form-control" id="inputTema" placeholder="Insira o Tema">
+        </div>
+        <div class="row mb-3">
+            <div class="col-md-8">
+                <label for="inputLocal" class="form-label">Local</label>
+                <input type="text" class="form-control" id="inputLocal" placeholder="">
+            </div>
+            <div class="col-md-4">
+                <label for="inputDataHora" class="form-label">Data e Hora</label>
+                <input type="datetime" class="form-control" id="inputDataHora" placeholder="">
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-md-2">
+                <label for="inputQtdPessoas" class="form-label">Qtd Pessoas</label>
+                <input type="text" class="form-control is-invalid" id="inputQtdPessoas" placeholder="">
+            </div>
+            <div class="col-md-4">
+                <label for="inputTelefone" class="form-label">Telefone</label>
+                <input type="text" class="form-control" id="inputTelefone" placeholder="(000) 90000-0000">
+            </div>
+            <div class="col-md-6">
+                <label for="inputEmail" class="form-label">Email</label>
+                <input type="text" class="form-control" id="inputEmail" placeholder="e-mail">
+            </div>
+        </div>
+    </div>
+    <div class="card-footer">
+        <div class="d-flex">
+            <button class="btn btn-outline-secondary me-auto">Cancelar Alteração</button>
+            <button class="btn btn-success">
+                <span class="spinner-border spinner-border-sm me-2"></span>
+                Salvar Evento
+            </button>
+        </div>
+    </div>
+</form>
+</div>
