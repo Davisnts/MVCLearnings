@@ -33,7 +33,7 @@ namespace Fullstack.Application
                 throw new Exception(ex.Message);
             }
         }
-        public async Task<Evento> UpdateEventos(int eventoId, Evento model)
+        public async Task<Evento> UpdateEvento(int eventoId, Evento model)
         {
             try
             {

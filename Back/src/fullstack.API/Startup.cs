@@ -1,4 +1,7 @@
+using Fullstack.Application;
+using Fullstack.Persistence;
 using Fullstack.Persistence.Contexto;
+using Fullstack.Persistence.Contratos;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
@@ -17,8 +20,13 @@ namespace Fullstack.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<FullstackContext>(
-                context => context.UseSqlite(Configuration.GetConnectionString("Default")));
-            services.AddControllers();
+            context => context.UseSqlite(Configuration.GetConnectionString("Default")));
+            services.AddControllers().AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling =
+                        Newtonsoft.Json.ReferenceLoopHandling.Ignore
+                    );
+            services.AddScoped<IEventoService, EventoService>();
+            services.AddScoped<IGeralPersist, GeralPersistence>();
+            services.AddScoped<IEventoPersist, EventoPersistence>();
             services.AddCors();
             services.AddSwaggerGen(c =>
             {
