@@ -35,7 +35,10 @@ export class PerfilComponent implements OnInit {
       confirmPassword: ['', Validators.required],
     },formOptions);
   }
-}
+  public resetForm() : void{
+    this.form.reset()
+  }
+  }
 
 
 
