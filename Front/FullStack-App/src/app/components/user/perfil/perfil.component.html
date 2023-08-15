@@ -1,125 +1,181 @@
-<app-titulo [titulo]="'Perfil'" [iconClass]="'fa fa-user'" ></app-titulo>
-<div class="card rounded shadow-sm">
-<form>
-  <div class="row p-3">
-          <div class="col-lg-3 pt-1">
-            <div class="card mb-3">
-                <div class="card-header"></div>
-				<div class="d-flex align-self-center pt-3">
-					<a>
-						<img
-						src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRbezqZpEuwGSvitKy3wrwnth5kysKdRqBW54cAszm_wiutku3R"
-						name="aboutme" width="120" height="120" class="rounded-circle">
-					</a>
-				</div>
-                <div class="card-body">
-                <div class="h4 text-center mb-3">@UserName</div>
-                <div class="h7 text-bold pb-1"><b>Nome:</b> Miracles Lee Cross</div>
-                <div class="h7">
-                  Developer of web applications, JavaScript, PHP, Java, Python, Ruby,
-                  Java, Node.js, etc.
-                </div>
-              </div>
-              <ul class="list-group list-group-flush">
-                <li class="list-group-item">
-                  <div class="row">
-                    <div class="col-6 text-center border-end">
-                      <div class="h5">1342</div>
-                      <div class="h6 text-muted">Eventos Ministrados</div>
-                    </div>
-                    <div class="col-6 text-center">
-                      <div class="h5">1342</div>
-                      <div class="h6 text-muted">Eventos Participados</div>
-                    </div>
-                  </div>
-                </li>
-              </ul>
-              <div class="card-footer"></div>
+<app-titulo [titulo]="'Perfil'" [iconClass]="'fa fa-user'"></app-titulo>
+<div class="card rounded shadow-sm form">
+  <form [formGroup]="form">
+    <div class="row p-3">
+      <div class="col-lg-3 pt-1">
+        <div class="card mb-3">
+          <div class="card-header"></div>
+          <div class="d-flex align-self-center pt-3">
+            <a>
+              <img
+                src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRbezqZpEuwGSvitKy3wrwnth5kysKdRqBW54cAszm_wiutku3R"
+                name="aboutme" width="120" height="120" class="rounded-circle" />
+            </a>
+          </div>
+          <div class="card-body">
+            <div class="h4 text-center mb-3">@UserName</div>
+            <div class="h7 text-bold pb-1"><b>Nome:</b> Miracles Lee Cross</div>
+            <div class="h7">
+              Developer of web applications, JavaScript, PHP, Java, Python,
+              Ruby, Java, Node.js, etc.
             </div>
           </div>
-          <div class="col-lg-9">
-            <div class="mb-3">
-              <h3 class="border-bottom pb-2">Detalhe Perfil</h3>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+              <div class="row">
+                <div class="col-6 text-center border-end">
+                  <div class="h5">1342</div>
+                  <div class="h6 text-muted">Eventos Ministrados</div>
+                </div>
+                <div class="col-6 text-center">
+                  <div class="h5">1342</div>
+                  <div class="h6 text-muted">Eventos Participados</div>
+                </div>
+              </div>
+            </li>
+          </ul>
+          <div class="card-footer"></div>
+        </div>
+      </div>
+      <div class="col-lg-9">
+        <div class="mb-3">
+          <h3 class="border-bottom pb-2">Detalhe Perfil</h3>
+        </div>
+        <div class="row mb-3">
+          <div class="col">
+            <label for="inputTitulo">Título</label>
+            <select class="form-select" [ngClass]="{'is-invalid': f.titulo.errors && f.titulo.touched }"
+              formControlName="titulo">
+              <option value></option>
+              <option value="0">Não Quero</option>
+              <option value="Tecnólogo(a)">Tecnólogo(a)</option>
+              <option value="Bacharel">Bacharel</option>
+              <option value="Especialista">Especialista</option>
+              <option value="Pós Graduado(a)">Pós Graduado(a)</option>
+              <option value="Mestre">Mestre</option>
+              <option value="Doutor(a)">Doutor(a)</option>
+              <option value="Pós Doc">Pós Doc</option>
+            </select>
+            <div *ngIf="f.titulo.errors?.required" class="invalid-feedback">
+              É obrigatório escolher um titulo
             </div>
-      <div class="row mb-3">
-        <div class="col">
-          <label for="inputTitulo">Título</label>
-          <select class="form-select" id="inputTitulo">
-            <option value=""></option>
-            <option value="0">Não Quero</option>
-            <option value="Tecnólogo(a)">Tecnólogo(a)</option>
-            <option value="Bacharel">Bacharel</option>
-            <option value="Especialista">Especialista</option>
-            <option value="Pós Graduado(a)">Pós Graduado(a)</option>
-            <option value="Mestre">Mestre</option>
-            <option value="Doutor(a)">Doutor(a)</option>
-            <option value="Pós Doc">Pós Doc</option>
-          </select>
+          </div>
+          <div class="col-md-5">
+            <label for="inputFirstName">Primeiro Nome</label>
+            <input type="text" class="form-control" formControlName="firstName" [ngClass]="{
+              'is-invalid': f.firstName.errors && f.firstName.touched
+            }" />
+            <div *ngIf="f.firstName.errors?.required" class="invalid-feedback">
+              É obrigatório digitar O Primeiro Nome
+            </div>
+            <div *ngIf="f.firstName.errors?.minlength" class="invalid-feedback">
+              O Primeiro Nome deve ter no minimo 6 caracters!
+            </div>
+          </div>
+          <div class="col-md-5">
+            <label for="inputLastName">Sobrenome</label>
+            <input type="text" class="form-control" formControlName="lastName" [ngClass]="{
+              'is-invalid': f.lastName.errors && f.lastName.touched
+            }" />
+            <div *ngIf="f.lastName.errors?.required" class="invalid-feedback">
+              É obrigatório digitar O Sobrenome
+            </div>
+            <div *ngIf="f.lastName.errors?.minlength" class="invalid-feedback">
+              O Sobrenome deve ter no minimo 6 caracters!
+            </div>
+          </div>
         </div>
-        <div class="col-md-5">
-          <label for="inputFirstName">Primeiro Nome</label>
-          <input type="text" class="form-control" id="inputFirstName" />
+        <div class="row mb-3">
+          <div class="col-sm-5">
+            <label for="inputEmail">E-mail</label>
+            <input type="text" class="form-control" formControlName="email" [ngClass]="{
+              'is-invalid': f.email.errors && f.email.touched
+            }" />
+            <div *ngIf="f.email.errors?.required" class="invalid-feedback">
+              É obrigatório digitar a senha
+            </div>
+            <div *ngIf="f.email.errors?.minlength" class="invalid-feedback">
+              A Senha deve ter no minimo 6 caracters!
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <label for="inputTelefone">Telefone</label>
+            <input type="text" class="form-control" formControlName="telefone" [ngClass]="{
+              'is-invalid': f.telefone.errors && f.telefone.touched
+            }" />
+            <div *ngIf="f.telefone.errors?.required" class="invalid-feedback">
+              É obrigatório digitar a senha
+            </div>
+            <div *ngIf="f.telefone.errors?.minlength" class="invalid-feedback">
+              A Senha deve ter no minimo 6 caracters!
+            </div>
+          </div>
+          <div class="col-sm">
+            <label for="inputFuncao">Função</label>
+            <select class="form-select" [ngClass]="{'is-invalid': f.funcao.errors && f.funcao.touched }"
+              formControlName="funcao">
+              <option value></option>
+              <option value="Participante">Participante</option>
+              <option value="Palestrante">Palestrante</option>
+            </select>
+            <div *ngIf="f.funcao.errors?.required" class="invalid-feedback">
+              É obrigatório escolher uma Função </div>
+          </div>
         </div>
-        <div class="col-md-5">
-          <label for="inputLastName">Último nome</label>
-          <input type="text" class="form-control" id="inputLastName" />
+        <div class="mb-3">
+          <label for="inputDescricao">Descrição</label>
+          <input type="text" class="form-control" formControlName="descricao"
+            [ngClass]="{'is-invalid': f.descricao.errors && f.descricao.touched}" />
+          <div *ngIf="f.descricao.errors?.required" class="invalid-feedback">
+            É obrigatório digitar a descricao
+          </div>
+          <div *ngIf="f.descricao.errors?.minlength" class="invalid-feedback">A Descrição deve ter no minimo 6 caracteres</div>
+          <div *ngIf="f.descricao.errors?.maxlength" class="invalid-feedback">A Descrição deve ter no maximo 255 caracteres
+          </div>
         </div>
-      </div>
-      <div class="row mb-3">
-        <div class="col-sm-5">
-          <label for="inputEmail">E-mail</label>
-          <input type="text" class="form-control" id="inputEmail" />
+        <div>
+          <h3 class="pt-3 border-bottom pb-2">Mudar Senha</h3>
+          <p>Caso mude de senha, preencha os campos abaixo:</p>
         </div>
-        <div class="col-sm-4">
-          <label for="inputTelefone">Telefone</label>
-          <input type="text" class="form-control" id="inputTelefone" />
-        </div>
-        <div class="col-sm">
-          <label for="inputFuncao">Função</label>
-          <select class="form-select" id="inputFuncao">
-            <option value=""></option>
-            <option value="Participante">Participante</option>
-            <option value="Palestrante">Palestrante</option>
-          </select>
-        </div>
-      </div>
-      <div class="mb-3">
-        <label for="inputDescricao">Descrição</label>
-        <input type="text" class="form-control" id="inputDescricao" />
-      </div>
-      <div>
-        <h3 class="pt-3 border-bottom pb-2">Mudar Senha</h3>
-        <p>Caso mude de senha, preencha os campos abaixo:</p>
-      </div>
-      <div class="row">
-        <div class="col-md">
-          <label for="inputSenha">Senha</label>
-          <input type="password" class="form-control" id="inputSenha" />
-        </div>
-        <div class="col-md">
-          <label for="inputConfirmarSenha">Confirmar Senha</label>
-          <input
-            type="password"
-            class="form-control"
-            id="inputConfirmarSenha"
-          />
+        <div class="row">
+          <div class="col-md">
+            <label for="inputSenha">Senha</label>
+            <input type="password" class="form-control" formControlName="password" [ngClass]="{
+                'is-invalid': f.password.errors && f.password.touched
+              }" />
+            <div *ngIf="f.password.errors?.required" class="invalid-feedback">
+              É obrigatório digitar a senha
+            </div>
+            <div *ngIf="f.password.errors?.minlength" class="invalid-feedback">
+              A Senha deve ter no minimo 6 caracters!
+            </div>
+          </div>
+          <div class="col-md">
+            <label for="inputConfirmarSenha">Confirmar Senha</label>
+            <input type="password" class="form-control" formControlName="confirmPassword" [ngClass]="{
+                'is-invalid':
+                  f.confirmPassword.errors && f.confirmPassword.touched
+              }" />
+            <div *ngIf="f.confirmPassword.errors?.required" class="invalid-feedback">
+              É obrigatório confirmar a senha
+            </div>
+            <div *ngIf="f.confirmPassword.errors?.mustMatch" class="invalid-feedback">
+              As Senhas nao coincidem
+            </div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  <div class="card-footer">
-    <div class="d-flex">
-      <button class="btn btn-outline-secondary me-auto">
-        Cancelar Alteração
-      </button>
-      <button class="btn btn-success">
-        <span
-          class="spinner-border spinner-border-sm me-1"
-          role="status"
-        ></span>
-        Salvar Alteração
-      </button>
+    <div class="card-footer">
+      <div class="d-flex">
+        <button class="btn btn-outline-secondary me-auto">
+          Cancelar Alteração
+        </button>
+        <button class="btn btn-success">
+          <!-- <span class="spinner-border spinner-border-sm me-1" role="status"></span> -->
+          Salvar Alteração
+        </button>
+      </div>
     </div>
-  </div>
-</form>
+  </form>
 </div>
