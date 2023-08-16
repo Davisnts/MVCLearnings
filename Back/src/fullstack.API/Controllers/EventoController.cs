@@ -1,7 +1,8 @@
 
-using Fullstack.Domain;
 using Fullstack.Persistence.Contratos;
 using Microsoft.AspNetCore.Mvc;
+using Fullstack.Application.Dtos;
+
 namespace Fullstack.API.Controllers
 {
     [ApiController]
@@ -61,7 +62,7 @@ namespace Fullstack.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post(Evento model)
+        public async Task<IActionResult> Post(EventoDto model)
         {
             try
             {
@@ -75,14 +76,14 @@ namespace Fullstack.API.Controllers
             }
         }
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, Evento model)
+        public async Task<IActionResult> Put(int id, EventoDto model)
         {
             try
             {
-                var evento = await _eventoService.UpdateEvento(id ,model);
+                var evento = await _eventoService.UpdateEvento(id, model);
                 if (evento == null) return BadRequest("Falha ao atualizar evento");
                 return Ok(evento);
-            } 
+            }
             catch (Exception ex)
             {
                 return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao tentar recuperar eventos. Erro: {ex.Message}");

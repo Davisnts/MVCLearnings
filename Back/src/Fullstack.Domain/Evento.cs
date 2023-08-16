@@ -11,5 +11,6 @@ public class Evento
     public string Email { get; set; } 
     public IEnumerable<Lote> Lotes { get; set; }
     public IEnumerable<RedeSocial> RedeSociais { get; set; }
+    public IEnumerable<Palestrante> Palestrantes { get; set; }
     public IEnumerable<PalestranteEvento> PalestrantesEventos { get; set; }
 }
