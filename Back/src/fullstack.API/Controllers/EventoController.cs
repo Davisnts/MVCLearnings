@@ -22,7 +22,7 @@ namespace Fullstack.API.Controllers
             try
             {
                 var eventos = await _eventoService.GetAllEventosAsync(true);
-                if (eventos == null) return NotFound("Evento não encontrado");
+                if (eventos == null) return NoContent();
                 return Ok(eventos);
             }
             catch (Exception ex)
@@ -37,7 +37,7 @@ namespace Fullstack.API.Controllers
             try
             {
                 var evento = await _eventoService.GetEventoByIdAsync(id, true);
-                if (evento == null) return NotFound("Nenhum evento  encontrado");
+                if (evento == null) return NoContent();
                 return Ok(evento);
             }
             catch (Exception ex)
@@ -52,7 +52,7 @@ namespace Fullstack.API.Controllers
             try
             {
                 var evento = await _eventoService.GetAllEventosByTemaAsync(tema, true);
-                if (evento == null) return NotFound($"Nenhum evento com  o tema {tema} foi encontrado");
+                if (evento == null) return NoContent();
                 return Ok(evento);
             }
             catch (Exception ex)

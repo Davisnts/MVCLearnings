@@ -9,6 +9,10 @@ namespace fullstack.Application.Helpers
         
         public FullstackProfile(){
             CreateMap<Evento, EventoDto>().ReverseMap();
+            CreateMap<Lote, LoteDto>().ReverseMap();
+            CreateMap<RedeSocial, RedeSocialDto>().ReverseMap();
+            CreateMap<Palestrante, PalestranteDto>().ReverseMap();
+    
         }
     }
 }

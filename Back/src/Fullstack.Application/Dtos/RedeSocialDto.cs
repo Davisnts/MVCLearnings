@@ -1,5 +1,3 @@
-
-
 namespace Fullstack.Application.Dtos
 {
     public class RedeSocialDto
