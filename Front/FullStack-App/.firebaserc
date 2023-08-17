@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "ultra-function-254802": {
+      "hosting": {
+        "FullStack-App": [
+          "ultra-function-254802"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "ultra-function-254802"
+  }
+}

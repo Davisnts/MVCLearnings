@@ -6,37 +6,37 @@ import { Evento } from '@app/models/Evento';
 import { EventoService } from '@app/services/evento.service';
 import { Router } from '@angular/router';
 
-
 @Component({
   selector: 'app-evento-lista',
   templateUrl: './evento-lista.component.html',
-  styleUrls: ['./evento-lista.component.scss']
+  styleUrls: ['./evento-lista.component.scss'],
 })
 export class EventoListaComponent {
-  
   modalRef?: BsModalRef;
   public eventos: Evento[] = [];
   public eventosFiltrados: Evento[] = [];
-
   public larguraImagem = 150;
   public margemImagem = 2;
   public exibirImagem = true;
+  public eventoId = 0;
   private filtroListado = '';
-
   public get filtroLista(): string {
     return this.filtroListado;
   }
 
   public set filtroLista(value: string) {
     this.filtroListado = value;
-    this.eventosFiltrados = this.filtroLista ? this.filtrarEventos(this.filtroLista) : this.eventos;
+    this.eventosFiltrados = this.filtroLista
+      ? this.filtrarEventos(this.filtroLista)
+      : this.eventos;
   }
 
   public filtrarEventos(filtrarPor: string): Evento[] {
     filtrarPor = filtrarPor.toLocaleLowerCase();
     return this.eventos.filter(
-      evento => evento.tema.toLocaleLowerCase().indexOf(filtrarPor) !== -1 ||
-      evento.local.toLocaleLowerCase().indexOf(filtrarPor) !== -1
+      (evento) =>
+        evento.tema.toLocaleLowerCase().indexOf(filtrarPor) !== -1 ||
+        evento.local.toLocaleLowerCase().indexOf(filtrarPor) !== -1
     );
   }
 
@@ -45,14 +45,16 @@ export class EventoListaComponent {
     private modalService: BsModalService,
     private toastr: ToastrService,
     private spinner: NgxSpinnerService,
-    private router: Router,
-  ) { }
+    private router: Router
+  ) {}
 
   public ngOnInit(): void {
     this.spinner.show();
     this.getEventos();
   }
-  detalheEvento(id:number) : void{this.router.navigate([`/eventos/detalhe/${id}`])}
+  detalheEvento(Eventoid: number): void {
+    this.router.navigate([`/eventos/detalhe/${Eventoid}`]);
+  }
 
   public alterarImagem(): void {
     this.exibirImagem = !this.exibirImagem;
@@ -70,21 +72,46 @@ export class EventoListaComponent {
       },
       complete: () => {
         this.spinner.hide();
-        this.toastr.success('Sucesso ao Carregar os Eventos','Sucesso!')
-      }
+        this.toastr.success('Sucesso ao Carregar os Eventos', 'Sucesso!');
+      },
     });
   }
 
-  openModal(template: TemplateRef<any>) {
-    this.modalRef = this.modalService.show(template, {class: 'modal-sm'});
+  openModal(event: any, template: TemplateRef<any>, eventoId: number): void {
+    event.stopPropagation();
+    this.eventoId = eventoId;
+    this.modalRef = this.modalService.show(template, { class: 'modal-sm' });
   }
 
-  confirm(): void {
+  confirm(eventoId: any): void {
     this.modalRef?.hide();
+    this.spinner.show();
+
+    this.eventoService
+      .deleteEvento(this.eventoId)
+      .subscribe({
+        next: (result: any) => {
+          if (result.message == 'Deletado') {
+            console.log(result);
+            this.toastr.success(
+              `O Evento de ID ${eventoId} foi deletado com sucesso!`,
+              'Deletado!'
+            );
+            this.getEventos();
+          }
+        },
+        error: (error: any) => {
+          this.toastr.error(
+            `Ocorreu um erro ao deletar o evento ${eventoId}`,
+            'Error!'
+          );
+          console.error(error);
+        },
+      })
+      .add(() => this.spinner.hide());
   }
 
   decline(): void {
     this.modalRef?.hide();
   }
-
 }

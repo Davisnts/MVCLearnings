@@ -95,7 +95,9 @@ namespace Fullstack.API.Controllers
         {
             try
             {
-                return await _eventoService.DeleteEventos(id) ? Ok($"O Evento de id: {id} foi deletado com sucesso") : BadRequest("Falha ao Deletar o evento");
+                return await _eventoService.DeleteEventos(id) ? Ok(new { message = "Deletado"})
+                :
+                 BadRequest("Falha ao Deletar o evento");
             }
             catch (Exception ex)
             {

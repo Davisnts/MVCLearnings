@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
+
 @Component({
   selector: 'app-titulo',
   templateUrl: './titulo.component.html',
@@ -17,6 +18,9 @@ export class TituloComponent implements OnInit {
   }
   listar():void{
     this.router.navigate([`/${this.titulo.toLocaleLowerCase()}/lista`])
+ 
+
   }
+
 
 }
