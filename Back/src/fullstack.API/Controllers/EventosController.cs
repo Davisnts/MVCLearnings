@@ -94,10 +94,12 @@ namespace Fullstack.API.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             try
-            {
-                return await _eventoService.DeleteEventos(id) ? Ok(new { message = "Deletado"})
-                :
-                 BadRequest("Falha ao Deletar o evento");
+            { var evento = await _eventoService.GetEventoByIdAsync(id, true);
+                if (evento == null) return NoContent();
+
+                return await _eventoService.DeleteEventos(id) ? Ok(new { message = "Deletado"}) : throw new Exception("Ocorreu um problem não específico ao tentar deletar Evento.");
+                
+                
             }
             catch (Exception ex)
             {

@@ -6,6 +6,7 @@ import { Evento } from '@app/models/Evento';
 import { EventoService } from '@app/services/evento.service';
 import { Router } from '@angular/router';
 
+
 @Component({
   selector: 'app-evento-lista',
   templateUrl: './evento-lista.component.html',
@@ -66,9 +67,10 @@ export class EventoListaComponent {
         this.eventos = eventos;
         this.eventosFiltrados = this.eventos;
       },
-      error: (error: any) => {
+      error: (error) => {
         this.spinner.hide();
         this.toastr.error('Erro ao Carregar os Eventos', 'Erro!');
+        console.error(error);
       },
       complete: () => {
         this.spinner.hide();

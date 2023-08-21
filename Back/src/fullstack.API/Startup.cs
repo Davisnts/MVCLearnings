@@ -27,8 +27,10 @@ namespace Fullstack.API
                     );
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddScoped<IEventoService, EventoService>();
-            services.AddScoped<IGeralPersist, GeralPersistence>();
             services.AddScoped<IEventoPersist, EventoPersistence>();
+            services.AddScoped<ILoteService, LoteService>();
+            services.AddScoped<ILotePersist, LotePersistence>();
+            services.AddScoped<IGeralPersist, GeralPersistence>();
             services.AddCors();
             services.AddSwaggerGen(c =>
             {
