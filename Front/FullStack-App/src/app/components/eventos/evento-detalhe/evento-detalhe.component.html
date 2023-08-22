@@ -164,7 +164,7 @@
         >
           <fieldset [formGroupName]="i" class="form-group">
             <legend class="d-flex justify-content-between capitalize">
-              {{returnTituloLote()}}
+             
               <button
                 (click)="removerLote(template, i)"
                 class="p-2 btn btn-sm btn-outline-warning mb-1 d-flex"
@@ -203,6 +203,7 @@
                 <input
                   type="text"
                   currencyMask
+                  [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' , align: 'left'}"
                   class="form-control"
                   [ngClass]="cssValidator(lotes.get(i + '.preco'))"
                   formControlName="preco"
@@ -212,16 +213,15 @@
               <div class="form-group col-md-4">
                 <label>Data Início</label>
                 <input
-                   type="datetime"
+                  type="datetime"
                   [minDate]="minDate"
                   class="form-control"
                   formControlName="dataInicio"
                   bsDatepicker
                   [bsConfig]="bsOnlyDay"
-                  placeholder="01/01/2019"    
-                  [ngClass]="cssValidator(evento.lotes[i].dataInicio)"
-                  value="{{lotes.get(i+'.dataFim')?.value | date:'dd/MM/yyyy' }}"
-                  
+                  placeholder="01/01/2019"  
+                  [ngClass]="cssValidator(lotes.get(i + '.dataInicio'))"  
+                  value="{{lotes.get(i+'.dataInicio')?.value | date:'dd/MM/yyyy'}}"
                 />
               </div>
               <div class="form-group col-md-4">
@@ -234,7 +234,7 @@
                 bsDatepicker
                 [bsConfig]="bsOnlyDay"
                 value="{{lotes.get(i+'.dataFim  ')?.value|date:'dd/MM/yyyy' }}"
-                placeholder="{{minDate | DateFormatPipe}}"                
+                placeholder="01/01/2019"            
                 [ngClass]="cssValidator(lotes.get(i + '.dataFim'))"
                   />
               </div>
