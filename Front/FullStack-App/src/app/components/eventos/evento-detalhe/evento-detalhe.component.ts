@@ -42,10 +42,8 @@ export class EventoDetalheComponent {
     this.minDate.setDate(this.minDate.getDate());
     this.localeService.use('pt-br');
   }
-
   public carregarEvento(): void {
     const eventoIdParam = this.router.snapshot.paramMap.get('id');
-
     if (eventoIdParam !== null) {
       this.stateSave = 'updateEvento';
       this.eventoService.getEventoById(+eventoIdParam).subscribe({
@@ -60,7 +58,6 @@ export class EventoDetalheComponent {
       });
     }
   }
-
   ngOnInit(): void {
     this.validation();
     this.carregarEvento();
