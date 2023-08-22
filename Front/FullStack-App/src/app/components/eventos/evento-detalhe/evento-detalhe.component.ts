@@ -5,6 +5,7 @@ import { Evento } from '@app/models/Evento';
 import { Lote } from '@app/models/Lote';
 import { EventoService } from '@app/services/evento.service';
 import { LoteService } from '@app/services/lote.service';
+import { environment } from '@environments/environment';
 import { BsLocaleService } from 'ngx-bootstrap/datepicker';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -17,10 +18,15 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class EventoDetalheComponent {
   modalRef?: BsModalRef;
-  form!: FormGroup;
   eventoId: any;
-  loteAtual = { id: 0, nome: '', indice: 0 };
   evento = {} as Evento;
+  form!: FormGroup;
+  stateSave = 'addEvento';
+  loteAtual = { id: 0, nome: '', indice: 0 };
+  minDate: Date;
+  ImagemUrl = 'assets/img/cloud.png';
+  file!: File;
+
   get f(): any {
     return this.form.controls;
   }
@@ -31,7 +37,6 @@ export class EventoDetalheComponent {
   get lotes(): FormArray {
     return this.form.get('lotes') as FormArray;
   }
-  stateSave = 'addEvento';
   get bsConfig(): any {
     return {
       isAnimated: true,
@@ -48,9 +53,8 @@ export class EventoDetalheComponent {
       showWeekNumber: false,
     };
   }
-
-  minDate: Date;
-
+  
+  
   constructor(
     private fb: FormBuilder,
     private localeService: BsLocaleService,
@@ -78,6 +82,9 @@ export class EventoDetalheComponent {
           next: (evento: Evento) => {
             this.evento = { ...evento };
             this.form.patchValue(this.evento);
+            if(this.evento.imagemUrl !==''){
+              this.ImagemUrl = environment.apiURL + "resources/images/" + this.evento.imagemUrl;
+            }
             this.carregarLotes();
           },
           error: (error: any) => {
@@ -138,7 +145,7 @@ export class EventoDetalheComponent {
       ],
       telefone: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      imagemUrl: ['', Validators.required],
+      imagemUrl: [''],
       lotes: this.fb.array([]),
     });
   }
@@ -166,7 +173,6 @@ return nome === null || nome == '' ? 'Nome do lote' : nome;
    return { 'is-invalid': campoForm.errors && campoForm.touched };
   }
     }
-   
   public salvarEvento(): void {
     this.spinner.show();
 
@@ -182,7 +188,6 @@ return nome === null || nome == '' ? 'Nome do lote' : nome;
           this.toastr.success('Evento salvo com sucesso', 'Sucesso!');
           this.router.navigate([`eventos/detalhe/${eventoreturn.id}`]);
         },
-
         error: () => {
           console.error(Error);
           this.toastr.error('Error ao salvar evento', 'Error');
@@ -190,7 +195,6 @@ return nome === null || nome == '' ? 'Nome do lote' : nome;
       })
       .add(() => this.spinner.hide());
   }
-
   public salvarLotes(): void {
     if (this.form.controls['lotes'].valid) {
       this.spinner.show();
@@ -216,7 +220,6 @@ return nome === null || nome == '' ? 'Nome do lote' : nome;
 
     this.modalRef = this.modalService.show(template, { class: 'modal-sm' });
   }
-
   public confirmDeleteLote(): void {
     this.spinner.show();
     this.modalRef?.hide();
@@ -233,8 +236,26 @@ return nome === null || nome == '' ? 'Nome do lote' : nome;
       })
       .add(() => this.spinner.hide());
   }
-
   public declineDeleteLote(): void {
     this.modalRef?.hide();
+  }
+  onFileChange(ev:any): void{
+    const reader = new FileReader();
+    reader.onload= (event: any) => this.ImagemUrl = event.target.result
+    this.file = ev.target.files;
+    reader.readAsDataURL(this.file[0])
+    this.uploadImagem();
+  }
+  uploadImagem(): void{
+    this.spinner.show;
+    this.eventoService.postUpload(this.eventoId,this.file).subscribe({
+      next:()=>{this.carregarEvento(); 
+        this.toastr.success('Imagem autoalizado com sucesso','Sucesso!')},
+      error:(error)=>{this.toastr.error('Erro ao autoalizar imagem','Error!');
+      console.error(error);
+      }
+
+
+    }).add(()=>this.spinner.hide())
   }
 }

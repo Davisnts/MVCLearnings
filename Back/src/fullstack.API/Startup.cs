@@ -5,6 +5,8 @@ using Fullstack.Persistence.Contratos;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using AutoMapper;
+using Microsoft.Extensions.FileProviders;
+
 
 namespace Fullstack.API
 {
@@ -55,6 +57,10 @@ namespace Fullstack.API
             app.UseAuthorization();
 
             app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
+            app.UseStaticFiles(new StaticFileOptions(){
+                FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "Resources")),
+                RequestPath = new PathString("/Resources") 
+            });
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

@@ -25,3 +25,15 @@
   top: var(--default-height);
 }
 
+.card-evento-view {
+  position: sticky;
+  top: 10px;
+}
+.card-img-block{
+  img{
+    cursor: pointer;
+    width: 100%;
+  }
+  max-height: 100%;
+}
+
