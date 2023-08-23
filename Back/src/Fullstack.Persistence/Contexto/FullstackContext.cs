@@ -1,8 +1,13 @@
 using Fullstack.Domain;
+using Fullstack.Domain.Identity;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 namespace Fullstack.Persistence.Contexto
 {
-    public class FullstackContext : DbContext
+    public class FullstackContext : IdentityDbContext<User, Role, int, 
+                                                       IdentityUserClaim<int>, UserRole, IdentityUserLogin<int>, 
+                                                       IdentityRoleClaim<int>, IdentityUserToken<int>>  
     {
         public FullstackContext(DbContextOptions<FullstackContext> options) 
             : base(options) { }
@@ -13,11 +18,34 @@ namespace Fullstack.Persistence.Contexto
         public DbSet<RedeSocial> RedesSociais { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<UserRole>(userRole => {
+                userRole.HasKey(ur => new {ur.UserId,ur.RoleId});
+
+                userRole.HasOne(ur => ur.Role)
+                .WithMany(r => r.UserRoles)
+                .HasForeignKey(ur => ur.RoleId)
+                .IsRequired();
+
+                userRole.HasOne(ur => ur.User)
+                .WithMany(r => r.UserRoles)
+                .HasForeignKey(ur => ur.UserId)
+                .IsRequired();
+            });
+           
             modelBuilder.Entity<PalestranteEvento>()
                 .HasKey(PE => new {PE.EventoId, PE.PalestranteId});
 
-            modelBuilder.Entity<Evento>().HasMany(e => e.RedeSociais).WithOne(rs => rs.Evento).OnDelete(DeleteBehavior.Cascade);
-            modelBuilder.Entity<Palestrante>().HasMany(e => e.RedeSociais).WithOne(rs => rs.Palestrante).OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<Evento>()
+            .HasMany(e => e.RedeSociais)
+            .WithOne(rs => rs.Evento)
+            .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Palestrante>()
+            .HasMany(e => e.RedeSociais)
+            .WithOne(rs => rs.Palestrante)
+            .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }
