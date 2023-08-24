@@ -24,6 +24,7 @@ namespace Fullstack.Application.Dtos
         [Required(ErrorMessage = "O Campo {0} é obrigatorio"), Display(Name = "Email"),
         EmailAddress(ErrorMessage = "é necessário ser um {0} válido")]
         public string Email { get; set; }
+        public int UserId {get; set;}
         public IEnumerable<LoteDto> Lotes { get; set; }
         public IEnumerable<RedeSocialDto> RedeSociais { get; set; }
 
