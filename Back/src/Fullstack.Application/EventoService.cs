@@ -47,6 +47,7 @@ namespace Fullstack.Application
                 if (evento == null) return null;
 
                 model.Id = evento.Id;
+                model.UserId = userId;
                 mapper.Map(model, evento);
                 _geralPersist.Update<Evento>(evento);
 

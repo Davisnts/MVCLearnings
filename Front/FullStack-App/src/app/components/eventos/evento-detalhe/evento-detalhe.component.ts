@@ -82,9 +82,11 @@ export class EventoDetalheComponent {
           next: (evento: Evento) => {
             this.evento = { ...evento };
             this.form.patchValue(this.evento);
-            if(this.evento.imagemUrl !==''){
+            console.log(evento);
+            if(this.evento.imagemUrl !=''){
               this.ImagemUrl = environment.apiURL + "resources/images/" + this.evento.imagemUrl;
             }
+          
             this.carregarLotes();
           },
           error: (error: any) => {
@@ -146,7 +148,7 @@ export class EventoDetalheComponent {
       telefone: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       imagemUrl: [''],
-      lotes: this.fb.array([]),
+      lotes: this.fb.array([])
     });
   }
   adicionarLote(): void {

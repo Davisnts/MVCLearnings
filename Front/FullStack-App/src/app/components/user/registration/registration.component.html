@@ -7,7 +7,8 @@
   </div>
 
   <div class="col-md-6">
-    <form class="p-1" [formGroup]="form">
+    <form class="p-1" [formGroup]="form" (ngSubmit)="register()">
+
       <div class="pb-2 d-block d-md-none">
         <h3 class="border-bottom">Cadastro de Usuário</h3>
       </div>
@@ -95,7 +96,7 @@
         </div>
       </div>
       <div class="mb-3">
-        <button class="btn btn-lg btn-success btn-block px-md-5">
+        <button [disabled]="!form.valid" class="btn btn-lg btn-success btn-block px-md-5" type="submit">
           Registrar
         </button>
       </div>

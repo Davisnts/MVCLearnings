@@ -62,7 +62,7 @@ export class EventoListaComponent {
     this.exibirImagem = !this.exibirImagem;
   }
   public mostraImagem(imagemUrl): string{
-    return (imagemUrl !== '') ? `${environment.apiURL}resources/images/${imagemUrl}`  : `assets/img/semimagem.jpg`
+    return (imagemUrl != '') ? `${environment.apiURL}resources/images/${imagemUrl}`  : `assets/img/semimagem.jpg`
   }
 
   public getEventos(): void {

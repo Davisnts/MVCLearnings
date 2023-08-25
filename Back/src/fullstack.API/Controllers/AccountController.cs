@@ -10,7 +10,7 @@ namespace fullstack.API.Controllers
 {
     [Authorize]
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     public class AccountController : ControllerBase
     {
         private readonly IAccountService _accountService;
@@ -42,11 +42,20 @@ namespace fullstack.API.Controllers
         {
             try
             {
-                if (await _accountService.UserExists(userDto.username))
+                if (await _accountService.UserExists(userDto.UserName))
                     return BadRequest("Usuário já existe");
 
                 var user = await _accountService.CreateAccountAsync(userDto);
-                if (user != null) return Ok($"Usuario Criado Com Sucesso \n\nUsuario:{user.username}");
+              
+                if (user != null){
+                     
+                     return Ok(new
+                {
+                    userName = user.UserName,
+                    PrimeiroNome = user.PrimeiroNome,
+                    token = _tokenService.CreateToken(user).Result
+                });
+                }
 
                 return BadRequest("Usuário não criado, tente novamente mais tarde");
             }
