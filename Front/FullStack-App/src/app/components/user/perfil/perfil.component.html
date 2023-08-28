@@ -1,6 +1,6 @@
 <app-titulo [titulo]="'Perfil'" [iconClass]="'fa fa-user'"></app-titulo>
 <div class="card rounded shadow-sm form">
-  <form [formGroup]="form">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
     <div class="row p-3">
       <div class="col-lg-3 pt-1">
         <div class="card mb-3">
@@ -13,23 +13,22 @@
             </a>
           </div>
           <div class="card-body">
-            <div class="h4 text-center mb-3">@UserName</div>
-            <div class="h7 text-bold pb-1"><b>Nome:</b> Miracles Lee Cross</div>
+            <div class="h4 text-center mb-3">@{{f.userName.value| titlecase}}</div>
+            <div class="h7 text-bold pb-1"><b>Nome:</b> {{f.primeiroNome.value  + ' ' + f.ultimoNome.value | titlecase}} </div>
             <div class="h7">
-              Developer of web applications, JavaScript, PHP, Java, Python,
-              Ruby, Java, Node.js, etc.
+         {{f.descricao.value}}
             </div>
           </div>
           <ul class="list-group list-group-flush">
             <li class="list-group-item">
               <div class="row">
                 <div class="col-6 text-center border-end">
-                  <div class="h5">1342</div>
-                  <div class="h6 text-muted">Eventos Ministrados</div>
+                  <div class="h5">0</div>
+                  <div class="h6 text-muted">Eventos Criados</div>
                 </div>
                 <div class="col-6 text-center">
-                  <div class="h5">1342</div>
-                  <div class="h6 text-muted">Eventos Participados</div>
+                  <div class="h5">0</div>
+                  <div class="h6 text-muted">Eventos como convidado</div>
                 </div>
               </div>
             </li>
@@ -47,14 +46,14 @@
             <select class="form-select" [ngClass]="{'is-invalid': f.titulo.errors && f.titulo.touched }"
               formControlName="titulo">
               <option value></option>
-              <option value="0">Não Quero</option>
+              <option value="NaoInformado">Não Quero</option>
               <option value="Tecnólogo(a)">Tecnólogo(a)</option>
               <option value="Bacharel">Bacharel</option>
               <option value="Especialista">Especialista</option>
-              <option value="Pós Graduado(a)">Pós Graduado(a)</option>
-              <option value="Mestre">Mestre</option>
-              <option value="Doutor(a)">Doutor(a)</option>
-              <option value="Pós Doc">Pós Doc</option>
+              <option value="PosGraduado(a)">Pós Graduado(a)</option>
+              <option value="Mestrado">Mestre</option>
+              <option value="Doutorado">Doutor(a)</option>
+              <option value="PosDoutorado">Pos Doutorado</option>
             </select>
             <div *ngIf="f.titulo.errors?.required" class="invalid-feedback">
               É obrigatório escolher um titulo
@@ -62,25 +61,25 @@
           </div>
           <div class="col-md-5">
             <label for="inputFirstName">Primeiro Nome</label>
-            <input type="text" class="form-control" formControlName="firstName" [ngClass]="{
-              'is-invalid': f.firstName.errors && f.firstName.touched
+            <input type="text" class="form-control" formControlName="primeiroNome" [ngClass]="{
+              'is-invalid': f.primeiroNome.errors && f.primeiroNome.touched
             }" />
-            <div *ngIf="f.firstName.errors?.required" class="invalid-feedback">
+            <div *ngIf="f.primeiroNome.errors?.required" class="invalid-feedback">
               É obrigatório digitar O Primeiro Nome
             </div>
-            <div *ngIf="f.firstName.errors?.minlength" class="invalid-feedback">
+            <div *ngIf="f.primeiroNome.errors?.minlength" class="invalid-feedback">
               O Primeiro Nome deve ter no minimo 6 caracters!
             </div>
           </div>
           <div class="col-md-5">
             <label for="inputLastName">Sobrenome</label>
-            <input type="text" class="form-control" formControlName="lastName" [ngClass]="{
-              'is-invalid': f.lastName.errors && f.lastName.touched
+            <input type="text" class="form-control" formControlName="ultimoNome" [ngClass]="{
+              'is-invalid': f.ultimoNome.errors && f.ultimoNome.touched
             }" />
-            <div *ngIf="f.lastName.errors?.required" class="invalid-feedback">
+            <div *ngIf="f.ultimoNome.errors?.required" class="invalid-feedback">
               É obrigatório digitar O Sobrenome
             </div>
-            <div *ngIf="f.lastName.errors?.minlength" class="invalid-feedback">
+            <div *ngIf="f.ultimoNome.errors?.minlength" class="invalid-feedback">
               O Sobrenome deve ter no minimo 6 caracters!
             </div>
           </div>
@@ -100,13 +99,13 @@
           </div>
           <div class="col-sm-4">
             <label for="inputTelefone">Telefone</label>
-            <input type="text" class="form-control" formControlName="telefone" [ngClass]="{
-              'is-invalid': f.telefone.errors && f.telefone.touched
+            <input type="text" class="form-control" formControlName="phoneNumber" [ngClass]="{
+              'is-invalid': f.phoneNumber.errors && f.phoneNumber.touched
             }" />
-            <div *ngIf="f.telefone.errors?.required" class="invalid-feedback">
+            <div *ngIf="f.phoneNumber.errors?.required" class="invalid-feedback">
               É obrigatório digitar a senha
             </div>
-            <div *ngIf="f.telefone.errors?.minlength" class="invalid-feedback">
+            <div *ngIf="f.phoneNumber.errors?.minlength" class="invalid-feedback">
               A Senha deve ter no minimo 6 caracters!
             </div>
           </div>
@@ -114,7 +113,7 @@
             <label for="inputFuncao">Função</label>
             <select class="form-select" [ngClass]="{'is-invalid': f.funcao.errors && f.funcao.touched }"
               formControlName="funcao">
-              <option value></option>
+              <option value="NaoInformado">Não Informado</option>
               <option value="Participante">Participante</option>
               <option value="Palestrante">Palestrante</option>
             </select>
@@ -122,7 +121,7 @@
               É obrigatório escolher uma Função </div>
           </div>
         </div>
-        <div class="mb-3">
+        <div class="form-group col-12">
           <label for="inputDescricao">Descrição</label>
           <input type="text" class="form-control" formControlName="descricao"
             [ngClass]="{'is-invalid': f.descricao.errors && f.descricao.touched}" />
@@ -168,10 +167,10 @@
     </div>
     <div class="card-footer">
       <div class="d-flex">
-        <button (click)="resetForm()" class="btn btn-outline-secondary me-auto">
+        <button (click)="resetForm($event)" class="btn btn-outline-secondary me-auto">
           Cancelar Alteração
         </button>
-        <button class="btn btn-success">
+        <button class="btn btn-success" type="submit">
 
           Salvar Alteração
         </button>

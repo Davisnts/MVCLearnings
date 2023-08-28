@@ -2,7 +2,7 @@ export interface User {
     userName: string;
     email: string;
     password: string;
-    primeroNome: string;
+    primeiroNome : string;
     ultimoNome: string;
     token: string;
 }

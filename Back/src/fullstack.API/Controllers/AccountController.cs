@@ -92,11 +92,17 @@ namespace fullstack.API.Controllers
         {
             try
             {
+                if(userUpdateDto.UserName != User.GetUserName())
+                    return Unauthorized("Token/User Mismatch");
                 var user = await _accountService.GetUserByUsernameAsync(User.GetUserName());
                 if (user == null) return Unauthorized("Usuario Invalido");
                 var userReturn = await _accountService.UpdateAccount(userUpdateDto);
                 if (user == null) return NoContent();
-                return Ok(userReturn);
+                 return Ok(new{
+                    userName = userReturn.UserName,
+                    PrimeiroNome = userReturn.PrimeiroNome,
+                    token = _tokenService.CreateToken(user).Result
+                });
 
 
             }

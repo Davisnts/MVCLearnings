@@ -142,7 +142,7 @@
                     <input type="datetime" [minDate]="minDate" class="form-control" formControlName="dataInicio"
                       bsDatepicker [bsConfig]="bsOnlyDay" placeholder="01/01/2019"
                       [ngClass]="cssValidator(lotes.get(i + '.dataInicio'))" value="{{
-                        lotes.get(i + '.dataInicio')?.value
+                        lotes.get(i + '.dataInicio').value
                           | date : 'dd/MM/yyyy'
                       }}" />
                   </div>
@@ -150,7 +150,7 @@
                     <label>Data Fim</label>
                     <input type="datetime" class="form-control" [minDate]="minDate" formControlName="dataFim"
                       bsDatepicker [bsConfig]="bsOnlyDay" value="{{
-                        lotes.get(i + '.dataFim  ')?.value | date : 'dd/MM/yyyy'
+                        lotes.get(i + '.dataFim  ').value | date : 'dd/MM/yyyy'
                       }}" placeholder="01/01/2019" [ngClass]="cssValidator(lotes.get(i + '.dataFim'))" />
                   </div>
                 </div>

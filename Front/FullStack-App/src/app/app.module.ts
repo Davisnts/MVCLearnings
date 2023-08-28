@@ -82,6 +82,6 @@ defineLocale('pt-br', ptBrLocale);
   ],
   providers: [EventoService,AuthGuard, LoteService,AccountService, { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },],
   bootstrap: [AppComponent],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+
 })
 export class AppModule {}

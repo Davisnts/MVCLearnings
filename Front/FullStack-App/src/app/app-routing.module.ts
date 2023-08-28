@@ -21,6 +21,7 @@ const routes: Routes = [
     runGuardsAndResolvers: 'always',
     canActivate: [AuthGuard],
     children: [
+      { path: 'user', redirectTo: 'user/perfil' },
       { path: 'user/perfil', component: PerfilComponent },
       { path: 'eventos', redirectTo: 'eventos/lista' },
       {
@@ -41,7 +42,6 @@ const routes: Routes = [
       },
     ],
   },
-  { path: 'user', redirectTo: 'user/login' },
   {
     path: 'user',
     component: UserComponent,
