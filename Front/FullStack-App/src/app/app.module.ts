@@ -11,6 +11,7 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { defineLocale } from 'ngx-bootstrap/chronos';
 import { ptBrLocale } from 'ngx-bootstrap/locale';
 import { NgxCurrencyDirective } from "ngx-currency";
+import { PaginationModule } from 'ngx-bootstrap/pagination';
 
 import { ToastrModule } from 'ngx-toastr';
 import { NgxSpinnerModule } from 'ngx-spinner';
@@ -60,6 +61,7 @@ defineLocale('pt-br', ptBrLocale);
     HomeComponent,
   ],
   imports: [
+    PaginationModule.forRoot(),
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,

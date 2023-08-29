@@ -2,13 +2,15 @@ using AutoMapper;
 using Fullstack.Application.Dtos;
 using Fullstack.Domain;
 using Fullstack.Domain.Identity;
+using Fullstack.Persistence.Models;
 
 namespace fullstack.Application.Helpers
 {
     public class FullstackProfile : Profile
     {
-        
-        public FullstackProfile(){
+
+        public FullstackProfile()
+        {
             CreateMap<Evento, EventoDto>().ReverseMap();
             CreateMap<Lote, LoteDto>().ReverseMap();
             CreateMap<RedeSocial, RedeSocialDto>().ReverseMap();
@@ -16,6 +18,6 @@ namespace fullstack.Application.Helpers
             CreateMap<User, UserDto>().ReverseMap();
             CreateMap<User, UserLoginDto>().ReverseMap();
             CreateMap<User, UserUpdateDto>().ReverseMap();
+        }
     }
-}
 }
