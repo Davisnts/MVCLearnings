@@ -14,6 +14,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using fullstack.API.Helpers;
 
 namespace Fullstack.API
 {
@@ -67,10 +68,17 @@ namespace Fullstack.API
             services.AddScoped<ILoteService, LoteService>();
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IAccountService, AccountService>();
+            services.AddScoped<IPalestranteService, PalestranteService>();
+            services.AddScoped<IRedeSocialService, RedeSocialService>();
+            services.AddScoped<IUtil,Util>();
+
             services.AddScoped<IEventoPersist, EventoPersistence>();
             services.AddScoped<ILotePersist, LotePersistence>();
             services.AddScoped<IGeralPersist, GeralPersistence>();
             services.AddScoped<IUserPersist, UserPersistence>();
+            services.AddScoped<IRedeSocialPersist, RedeSocialPersistence>();
+            services.AddScoped<IPalestrantePersist, PalestrantePersistence>();
+            
             services.AddCors();
             services.AddSwaggerGen(c =>
             {

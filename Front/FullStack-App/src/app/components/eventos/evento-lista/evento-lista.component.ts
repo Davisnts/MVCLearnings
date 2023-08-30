@@ -80,7 +80,7 @@ export class EventoListaComponent {
   }
   public mostraImagem(imagemUrl): string {
     return imagemUrl != ''
-      ? `${environment.apiURL}resources/images/${imagemUrl}`
+      ? `${environment.apiURL}resources/eventos/${imagemUrl}`
       : `assets/img/semimagem.jpg`;
   }
 

@@ -1,11 +1,12 @@
 using Fullstack.Domain;
+using Fullstack.Persistence.Models;
+
 namespace Fullstack.Persistence.Contratos
 {
-    public interface IPalestrantePersist
+    public interface IPalestrantePersist : IGeralPersist
     {
         //PALESTRANTES
-        Task<Palestrante[]> GetAllPalestrantesByNomeAsync(string Nome, bool includeEventos);
-        Task<Palestrante[]> GetAllPalestrantesAsync(bool includeEventos);
-        Task<Palestrante> GetPalestranteByIdAsync(int PalestranteId, bool includeEventos);
+        Task<PageList<Palestrante>> GetAllPalestrantesAsync(PageParams pageParams, bool includeEventos = false);
+        Task<Palestrante> GetPalestranteByUserIdAsync(int userId, bool includeEventos = false);
     }
 }

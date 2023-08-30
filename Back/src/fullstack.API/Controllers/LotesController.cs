@@ -1,4 +1,3 @@
-
 using Fullstack.Persistence.Contratos;
 using Microsoft.AspNetCore.Mvc;
 using Fullstack.Application.Dtos;

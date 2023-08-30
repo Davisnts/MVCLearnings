@@ -1,5 +1,6 @@
 using System.Security.Claims;
 using fullstack.API.Extensions;
+using fullstack.API.Helpers;
 using Fullstack.Application.Contratos;
 using Fullstack.Application.Dtos;
 using Fullstack.Persistence.Contratos;
@@ -15,9 +16,12 @@ namespace fullstack.API.Controllers
     {
         private readonly IAccountService _accountService;
         private readonly ITokenService _tokenService;
+        private readonly IUtil _util;
+        private readonly string _destino = "Perfil";
 
-        public AccountController(IAccountService accountService, ITokenService tokenService)
+        public AccountController(IAccountService accountService, ITokenService tokenService, IUtil util)
         {
+            _util = util;
             _accountService = accountService;
             _tokenService = tokenService;
         }
@@ -46,15 +50,16 @@ namespace fullstack.API.Controllers
                     return BadRequest("Usuário já existe");
 
                 var user = await _accountService.CreateAccountAsync(userDto);
-              
-                if (user != null){
-                     
-                     return Ok(new
+
+                if (user != null)
                 {
-                    userName = user.UserName,
-                    PrimeiroNome = user.PrimeiroNome,
-                    token = _tokenService.CreateToken(user).Result
-                });
+
+                    return Ok(new
+                    {
+                        userName = user.UserName,
+                        PrimeiroNome = user.PrimeiroNome,
+                        token = _tokenService.CreateToken(user).Result
+                    });
                 }
 
                 return BadRequest("Usuário não criado, tente novamente mais tarde");
@@ -92,13 +97,14 @@ namespace fullstack.API.Controllers
         {
             try
             {
-                if(userUpdateDto.UserName != User.GetUserName())
+                if (userUpdateDto.UserName != User.GetUserName())
                     return Unauthorized("Token/User Mismatch");
                 var user = await _accountService.GetUserByUsernameAsync(User.GetUserName());
                 if (user == null) return Unauthorized("Usuario Invalido");
                 var userReturn = await _accountService.UpdateAccount(userUpdateDto);
                 if (user == null) return NoContent();
-                 return Ok(new{
+                return Ok(new
+                {
                     userName = userReturn.UserName,
                     PrimeiroNome = userReturn.PrimeiroNome,
                     token = _tokenService.CreateToken(user).Result
@@ -111,5 +117,27 @@ namespace fullstack.API.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao tentar Atualizar Usuario. Erro: {ex.Message}");
             }
         }
+        [HttpPost("upload-image")]
+        public async Task<IActionResult> UploadImage()
+        {
+            try
+            {
+                var user = await _accountService.GetUserByUsernameAsync(User.GetUserName());
+                if (user == null) return NoContent();
+                var file = Request.Form.Files[0];
+                if (file.Length > 0)
+                {
+                    _util.DeleteImage(user.ImagemUrl, _destino);
+                    user.ImagemUrl = await _util.SaveImage(file, _destino);
+                }
+                var userRetorno = await _accountService.UpdateAccount(user);
+                return Ok(userRetorno);
+            }
+            catch (Exception ex)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao tentar realizat upload da foto de perfil do usuario. Erro: {ex.Message}");
+            }
+        }
+
     }
 }
