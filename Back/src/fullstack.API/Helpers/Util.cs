@@ -8,34 +8,34 @@ namespace fullstack.API.Helpers
     public class Util : IUtil
     {
         private readonly IWebHostEnvironment _hostEnvironment;
-    
-    public Util(IWebHostEnvironment hostEnvironment)
-    {
-            _hostEnvironment = hostEnvironment;
-        
-    }
 
-    public async Task<string> SaveImage(IFormFile imageFile,string destino)
-    {
-        string imageName = new string(Path.GetFileNameWithoutExtension(imageFile.FileName)
+        public Util(IWebHostEnvironment hostEnvironment)
+        {
+            _hostEnvironment = hostEnvironment;
+        }
+        public async Task<string> SaveImage(IFormFile imageFile, string destino)
+        {
+            string imageName = new string(Path.GetFileNameWithoutExtension(imageFile.FileName)
         .Take(10)
         .ToArray())
         .Replace(' ', '-');
-        imageName = $"{imageName}{DateTime.UtcNow.ToString("yymmssfff")}{Path.GetExtension(imageFile.FileName)}";
-        var imagePath = Path.Combine(_hostEnvironment.ContentRootPath, @$"Resources/{destino}", imageName);
-        using (var fileStream = new FileStream(imagePath, FileMode.Create))
-        {
-            await imageFile.CopyToAsync(fileStream);
+            imageName = $"{imageName}{DateTime.UtcNow.ToString("yymmssfff")}{Path.GetExtension(imageFile.FileName)}";
+            if (!Directory.Exists(@$"Resources/{destino}"))
+                Directory.CreateDirectory(@$"Resources/{destino}");
+            var imagePath = Path.Combine(_hostEnvironment.ContentRootPath, @$"Resources/{destino}", imageName);
+            using (var fileStream = new FileStream(imagePath, FileMode.Create))
+            {
+                await imageFile.CopyToAsync(fileStream);
+            }
+            return imageName;
         }
-        return imageName;
-    }
-    public void DeleteImage(string imageName,string destino)
-    {
-        var imagePath = Path.Combine(_hostEnvironment.ContentRootPath, @$"Resources/{destino}", imageName);
-        if (System.IO.File.Exists(imagePath))
+        public void DeleteImage(string imageName, string destino)
         {
-            System.IO.File.Delete(imagePath);
+            var imagePath = Path.Combine(_hostEnvironment.ContentRootPath, @$"Resources/{destino}", imageName);
+            if (System.IO.File.Exists(imagePath))
+            {
+                System.IO.File.Delete(imagePath);
+            }
         }
     }
-}
 }
