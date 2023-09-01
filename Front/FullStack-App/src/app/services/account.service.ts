@@ -9,11 +9,11 @@ import { Observable, ReplaySubject, map, take } from 'rxjs';
 export class AccountService {
   private currentUserSource = new ReplaySubject<User>(1);
   public currentUser$ = this.currentUserSource.asObservable();
-  baseUrl = environment.apiURL + 'account/';
+  baseURL = environment.apiURL + 'account/';
   constructor(private http: HttpClient) {}
 
   public login(model: any): Observable<void> {
-    return this.http.post<User>(this.baseUrl + 'login', model).pipe(
+    return this.http.post<User>(this.baseURL + 'login', model).pipe(
       take(1),
       map((response: User) => {
         const user = response;
@@ -30,7 +30,7 @@ export class AccountService {
     this.currentUserSource.complete;
   }
   public register(model: any): Observable<void> {
-    return this.http.post<User>(this.baseUrl + 'account/register', model).pipe(
+    return this.http.post<User>(this.baseURL + 'account/register', model).pipe(
       take(1),
       map((response: User) => {
         const user = response;
@@ -41,11 +41,11 @@ export class AccountService {
     );
   }
   getUser(): Observable<UserUpdate> {
-    return this.http.get<UserUpdate>(this.baseUrl + 'getUser').pipe(take(1));
+    return this.http.get<UserUpdate>(this.baseURL + 'getUser').pipe(take(1));
   }
 
   updateUser(model: UserUpdate): Observable<void> {
-    return this.http.put<UserUpdate>(this.baseUrl + 'updateUser', model).pipe(
+    return this.http.put<UserUpdate>(this.baseURL + 'updateUser', model).pipe(
       take(1),
       map((user: UserUpdate) => {
         this.setCurrentUser(user);
@@ -55,5 +55,13 @@ export class AccountService {
   public setCurrentUser(user: User): void {
     localStorage.setItem('user', JSON.stringify(user));
     this.currentUserSource.next(user);
+  }
+  postUpload(file: File): Observable<User> {
+    const fileToUpload = file[0] as File;
+    const formData = new FormData();
+    formData.append('file', fileToUpload);
+    return this.http
+      .post<User>(`${this.baseURL}upload-image/`, formData)
+      .pipe(take(1));
   }
 }

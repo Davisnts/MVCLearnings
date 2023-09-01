@@ -8,5 +8,6 @@ export class UserUpdate {
      funcao : string;
      descricao : string;
      password : string;
+     imagemUrl : string;
      token : string;
 }

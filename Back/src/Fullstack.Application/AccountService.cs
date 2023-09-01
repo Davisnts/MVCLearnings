@@ -15,9 +15,6 @@ namespace Fullstack.Application
         private readonly SignInManager<User> _signInManager;
         private readonly IMapper _mapper;
         private readonly IUserPersist _userPersist;
-        private IMapper mapper;
-
-        
         public AccountService(UserManager<User> userManager,
         SignInManager<User> signInManager,
         IMapper mapper,

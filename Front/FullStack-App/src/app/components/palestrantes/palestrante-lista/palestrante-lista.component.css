@@ -1,0 +1,5 @@
+.rounded-circle {
+    &:hover {
+        outline: 0.2rem solid #424242;
+    }
+}

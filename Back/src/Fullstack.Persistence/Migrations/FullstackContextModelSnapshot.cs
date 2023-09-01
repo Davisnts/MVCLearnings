@@ -44,12 +44,12 @@ namespace Fullstack.Persistence.Migrations
                     b.Property<string>("Tema")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("UserID")
+                    b.Property<int>("UserId")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserID");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Eventos");
                 });
@@ -216,16 +216,10 @@ namespace Fullstack.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Email")
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("MiniCurriculo")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Telefone")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("UserId")
+                    b.Property<int>("UserId")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
@@ -365,7 +359,7 @@ namespace Fullstack.Persistence.Migrations
                 {
                     b.HasOne("Fullstack.Domain.Identity.User", "User")
                         .WithMany()
-                        .HasForeignKey("UserID")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -406,7 +400,9 @@ namespace Fullstack.Persistence.Migrations
                 {
                     b.HasOne("Fullstack.Domain.Identity.User", "User")
                         .WithMany()
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("User");
                 });

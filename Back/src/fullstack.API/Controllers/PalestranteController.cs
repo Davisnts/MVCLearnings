@@ -24,7 +24,7 @@ namespace Fullstack.API.Controllers
 
         }
 
-        [HttpGet]
+        [HttpGet("all")]
         public async Task<IActionResult> Get([FromQuery] PageParams pageParams)
         {
             try
@@ -54,16 +54,33 @@ namespace Fullstack.API.Controllers
                 return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao tentar recuperar palestrantes. Erro: {ex.Message}");
             }
         }
+        [HttpGet()]
+        public async Task<IActionResult> GetPalestrantes()
+        {
+            try
+            {
+                var palestrante = await _palestranteService.GetPalestranteByUserIdAsync(User.GetUserId(), true);
+                if (palestrante == null) return NoContent();
+
+                return Ok(palestrante);
+            }
+            catch (Exception ex)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError,
+                    $"Erro ao tentar recuperar palestrantes. Erro: {ex.Message}");
+            }
+        }
+
 
         [HttpPost]
         public async Task<IActionResult> Post(PalestranteAddDto model)
         {
             try
             {
-                var palestrante = await _palestranteService.GetPalestranteByUserIdAsync(User.GetUserId(),false);
+                var palestrante = await _palestranteService.GetPalestranteByUserIdAsync(User.GetUserId(), false);
                 if (palestrante == null)
                     palestrante = await _palestranteService.AddPalestrante(User.GetUserId(), model);
-     
+
                 return Ok(palestrante);
             }
             catch (Exception ex)
@@ -72,11 +89,11 @@ namespace Fullstack.API.Controllers
             }
         }
         [HttpPut]
-        public async Task<IActionResult> Put(PalestranteAddDto model)
+        public async Task<IActionResult> Put(PalestranteUpdateDto model)
         {
             try
             {
-                var palestrante = await _palestranteService.AddPalestrante(User.GetUserId(), model);
+                var palestrante = await _palestranteService.UpdatePalestrante(User.GetUserId(), model);
                 if (palestrante == null) return NoContent();
                 return Ok(palestrante);
             }

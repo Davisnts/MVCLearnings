@@ -135,7 +135,7 @@ namespace fullstack.API.Controllers
             }
             catch (Exception ex)
             {
-                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao tentar realizat upload da foto de perfil do usuario. Erro: {ex.Message}");
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao tentar realizar upload da foto de perfil do usuario. Erro: {ex.Message}");
             }
         }
 

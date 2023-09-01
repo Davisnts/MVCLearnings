@@ -18,10 +18,10 @@ export class EventoListaComponent {
   modalRef?: BsModalRef;
   public eventos: Evento[] = [];
   public eventosFiltrados: Evento[] = [];
+  public eventoId = 0;
   public larguraImagem = 150;
   public margemImagem = 2;
   public exibirImagem = true;
-  public eventoId = 0;
   public pagination = {} as Pagination;
 
   termoBuscaChanged: Subject<string> = new Subject<string>();

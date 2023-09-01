@@ -7,7 +7,7 @@ namespace Fullstack.Application.Dtos
         public string MiniCurriculo { get; set; }
         public int UserId { get; set; }
         public UserUpdateDto User { get; set; }
-        public IEnumerable<RedeSocialDto> RedeSociais { get; set; }
+        public IEnumerable<RedeSocialDto> RedesSociais { get; set; }
 
         public IEnumerable<EventoDto> Eventos { get; set; }
     }

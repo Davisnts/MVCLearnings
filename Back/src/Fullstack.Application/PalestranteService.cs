@@ -39,7 +39,7 @@ namespace Fullstack.Application
             }
 
         }
-        public async Task<PalestranteDto> UpdatePalestrante(int userId, int eventoId, PalestranteUpdateDto model)
+        public async Task<PalestranteDto> UpdatePalestrante(int userId, PalestranteUpdateDto model)
         {
             try
             {

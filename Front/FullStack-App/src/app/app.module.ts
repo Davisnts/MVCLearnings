@@ -10,11 +10,12 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { defineLocale } from 'ngx-bootstrap/chronos';
 import { ptBrLocale } from 'ngx-bootstrap/locale';
-import { NgxCurrencyDirective } from "ngx-currency";
+import { NgxCurrencyDirective } from 'ngx-currency';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 
 import { ToastrModule } from 'ngx-toastr';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { TabsModule } from 'ngx-bootstrap/tabs';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -40,6 +41,10 @@ import { JwtInterceptor } from './interceptors/jwt.interceptor';
 import { AccountService } from './services/account.service';
 import { AuthGuard } from './guard/auth.guard';
 import { HomeComponent } from './components/home/home.component';
+import { PerfilDetalheComponent } from './components/user/perfil/perfil-detalhe/perfil-detalhe.component';
+import { PalestranteListaComponent } from './components/palestrantes/palestrante-lista/palestrante-lista.component';
+import { PalestranteDetalheComponent } from './components/palestrantes/palestrante-detalhe/palestrante-detalhe.component';
+import { RedesSociaisComponent } from './components/redesSociais/redesSociais.component';
 
 defineLocale('pt-br', ptBrLocale);
 @NgModule({
@@ -47,9 +52,13 @@ defineLocale('pt-br', ptBrLocale);
     AppComponent,
     EventosComponent,
     PalestrantesComponent,
+    PalestranteListaComponent,
+    PalestranteDetalheComponent,
+    RedesSociaisComponent,
     ContatosComponent,
     DashboardComponent,
     PerfilComponent,
+    PerfilDetalheComponent,
     NavComponent,
     TituloComponent,
     DateTimeFormatPipe,
@@ -79,11 +88,17 @@ defineLocale('pt-br', ptBrLocale);
       progressBar: true,
     }),
     NgxCurrencyDirective,
+    TabsModule.forRoot(),
     NgxSpinnerModule,
     BsDatepickerModule.forRoot(),
   ],
-  providers: [EventoService,AuthGuard, LoteService,AccountService, { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },],
+  providers: [
+    EventoService,
+    AuthGuard,
+    LoteService,
+    AccountService,
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent],
-
 })
 export class AppModule {}
