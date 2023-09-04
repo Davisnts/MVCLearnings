@@ -84,7 +84,7 @@ export class EventoDetalheComponent {
             this.form.patchValue(this.evento);
             console.log(evento);
             if(this.evento.imagemUrl !=''){
-              this.ImagemUrl = environment.apiURL + "resources/eventos/" + this.evento.imagemUrl;
+              this.ImagemUrl = environment.apiURL + "resources/Eventos/" + this.evento.imagemUrl;
             }
           
             this.carregarLotes();

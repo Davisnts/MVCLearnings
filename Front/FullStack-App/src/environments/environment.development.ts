@@ -1,3 +1,3 @@
 export const environment = {
-    apiURL: 'https://localhost:5001/',
-  };
+  apiURL: 'https:///fullstackapi.fly.dev/',
+};

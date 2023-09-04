@@ -1,9 +1,14 @@
 namespace Fullstack.API
+
+
 {
     public class Program
     {
+
         public static void Main(string[] args)
         {
+            if (!Directory.Exists("Resources"))
+                Directory.CreateDirectory("Resources");
             CreateHostBuilder(args).Build().Run();
         }
 

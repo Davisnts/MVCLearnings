@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fullstack.Application", "Fu
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fullstack.Domain", "Fullstack.Domain\Fullstack.Domain.csproj", "{1F8159EE-0534-4C98-A2F3-471FA674ED8A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fullstack.API", "Fullstack.Api\Fullstack.API.csproj", "{F87294F9-EEC9-4C7D-831A-2124114A97F2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fullstack.Api", "Fullstack.Api\Fullstack.Api.csproj", "{F87294F9-EEC9-4C7D-831A-2124114A97F2}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fullstack.Persistence", "Fullstack.Persistence\Fullstack.Persistence.csproj", "{69310AF6-4A3D-4A3D-A7CB-E4E15136BFEC}"
 EndProject

@@ -30,7 +30,7 @@ export class AccountService {
     this.currentUserSource.complete;
   }
   public register(model: any): Observable<void> {
-    return this.http.post<User>(this.baseURL + 'account/register', model).pipe(
+    return this.http.post<User>(this.baseURL + 'register', model).pipe(
       take(1),
       map((response: User) => {
         const user = response;

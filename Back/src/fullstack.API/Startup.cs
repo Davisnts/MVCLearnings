@@ -55,7 +55,7 @@ namespace Fullstack.API
                     ValidateIssuerSigningKey = true,
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["TokenKey"])),
                     ValidateIssuer = false,
-                    ValidateAudience = false 
+                    ValidateAudience = false
                 };
             }
             );
@@ -70,7 +70,7 @@ namespace Fullstack.API
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<IPalestranteService, PalestranteService>();
             services.AddScoped<IRedeSocialService, RedeSocialService>();
-            services.AddScoped<IUtil,Util>();
+            services.AddScoped<IUtil, Util>();
 
             services.AddScoped<IEventoPersist, EventoPersistence>();
             services.AddScoped<ILotePersist, LotePersistence>();
@@ -78,22 +78,23 @@ namespace Fullstack.API
             services.AddScoped<IUserPersist, UserPersistence>();
             services.AddScoped<IRedeSocialPersist, RedeSocialPersistence>();
             services.AddScoped<IPalestrantePersist, PalestrantePersistence>();
-            
+
             services.AddCors();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Fullstack.API", Version = "v1" });
-                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme{
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
                     Description = @"JWT Authorization header usando Bearer.
                      Entre com 'Bearer' [espaço] então coloque seu token.
                       Exemplo: 'Bearer 12345abcdef'",
-                      Name = "Authorization",
-                      In = ParameterLocation.Header,
-                      Type = SecuritySchemeType.ApiKey,
-                      Scheme = "Bearer"
+                    Name = "Authorization",
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.ApiKey,
+                    Scheme = "Bearer"
                 });
-           
-            c.AddSecurityRequirement(new OpenApiSecurityRequirement(){
+
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement(){
                 {
                     new OpenApiSecurityScheme{
                         Reference = new OpenApiReference{
@@ -107,7 +108,7 @@ namespace Fullstack.API
                     new List<string>()
                 }
             });
-             });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
